@@ -1,34 +1,54 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM, {render} from 'react-dom';
 import './styles.css';
 
-let firstTask = {index: 1, text:"I'm the first", done: false};
-let tasks = [];
 
 class Task extends React.Component {
+    constructor(props) {
+        super(props);
+        this.onClickRemove = this.onClickRemove.bind(this);
+    }
 
+    onClickRemove() {
+        let index = parseInt(this.props.index);
+        this.props.removeTask(index)
+    }
+
+    render() {
+        return(
+            <li className={"to-do-list li"}>
+                <div className={"to-do-list__item colors__item_navy"}>
+                    <div className="task__manage">
+                        <input className="task__checkbox" type="checkbox"></input>
+                    </div>
+                    <div className="task__body">
+                        <p className="task__text"> {this.props.item.text}</p>
+                        <div onClick={this.onClickRemove}>X</div>
+                    </div>
+                </div>
+            </li>
+        )
+    }
 }
 
 class TasksList extends React.Component {
 
     render() {
+        let tasks = this.props.tasks.map((item, index) => {
+            return (
+                <Task item = {item} index = {index} removeTask = {this.props.removeTask}/>
+            )
+        });
         return (
-            <li>
-                <div class = "to-do-list__item bgColor task">
-                    <div class = "task__manage" >
-                        <input class = "task__checkbox" type = "checkbox"></input>
-                    </div>
-                    <div class = "task__body">
-                        <p class = "task__text"></p>
-                    </div>
-                </div>
-                </li>
+            <ul>
+                {tasks}
+            </ul>
         );
+
     }
 }
 
 class NewTaskForm extends React.Component { // Компонент доска
-
     constructor(props) {
         super(props);
         this.state = {
@@ -38,30 +58,24 @@ class NewTaskForm extends React.Component { // Компонент доска
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    //Меняет состояние каждый раз при изменении input
     handleChange(event) {
         this.setState({value: event.target.value});
     }
 
+    //Вызываетcя при нажатии ENTER в input формы или по кнопке
     handleSubmit(event) {
-        let text = this.state.value;
-        this.props.addTask(text);
-        event.preventDefault();
+        let text = this.state.value.trim();
+        if (text){
+            this.props.addTask(text);
+        }
+        event.preventDefault(); // Предотвращение поведения по умолчанию?
     }
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit} className="new-task">
-                <input type="text" onChange={this.handleChange} placeholder="Add new item" className="new-task__input" maxLength="85" id="new-task__input"></input>
-                    <div className="new-task__options">
-                        <div className="colors">
-                            <div className="colors__item colors__item_red"></div>
-                            <div className="colors__item colors__item_pink"></div>
-                            <div className="colors__item colors__item_purple"></div>
-                            <div className="colors__item colors__item_navy"></div>
-                            <div className="colors__item colors__item_blue"></div>
-                            <div className="colors__item colors__item_yellow"></div>
-                        </div>
-                    </div>
+            <form onSubmit = {this.handleSubmit} className="new-task">
+                <input type="text" onChange = {this.handleChange} placeholder="Add new item" className="new-task__input" maxLength="85" id="new-task__input"/>
                     <div className="new-task__controls">
                         <button className="new-task__btn">Add</button>
                     </div>
@@ -77,10 +91,11 @@ class ToDoApp extends React.Component {
             tasks: [], // Массив с тасками
         }
         this.addTask = this.addTask.bind(this); // Установка контекста для того, чтобы вызывать эти методы через пропсы
-        /*this.removeTask = this.removeTask.bind(this);
-        this.taskDone = this.taskDone.bind(this); */
+        this.removeTask = this.removeTask.bind(this);
+        //this.taskDone = this.taskDone.bind(this);
     }
-    // Добавление таска в массив
+
+    // Добавление таска в массив. Передается в пропсе в NewTaskForm
     addTask(task) {
         this.state.tasks.push(
             {
@@ -89,8 +104,15 @@ class ToDoApp extends React.Component {
                 done: false,
             }
         )
-        tasks = this.state.tasks.slice();
+        let tasks = this.state.tasks.slice();
         this.setState({tasks: tasks});
+        console.log(this.state.tasks);
+    }
+
+    removeTask(taskIndex){
+        console.log(taskIndex); //   Через фильтр
+       let tasks = this.state.tasks.splice(taskIndex, 1);
+       this.setState({tasks: tasks});
         console.log(this.state.tasks);
     }
 
@@ -98,7 +120,7 @@ class ToDoApp extends React.Component {
         return (
             <div className="wrapper">
                 <div className="to-do-app">
-                    <TasksList/>
+                    <TasksList tasks = {this.state.tasks} removeTask = {this.removeTask}/>
                     <NewTaskForm addTask = {this.addTask}/>
                 </div>
             </div>

@@ -9,6 +9,10 @@ body {
     justify-content: center;
 }
 
+li {
+    list-style: none;
+}
+
 .wrapper {
     width: 800px;
     height: 500px;
@@ -83,15 +87,11 @@ body {
     padding: 0;
 }
 
-.to-do-list li {
-    list-style: none;
-    outline: 1px solid white;
-
-}
 
 .to-do-list__item {
     display: flex;
     height: 60px;
+    outline: 1px solid white;
 }
 
 
