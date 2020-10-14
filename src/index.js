@@ -10,8 +10,8 @@ class Task extends React.Component {
     }
 
     onClickRemove() {
-        let index = parseInt(this.props.index);
-        this.props.removeTask(index)
+        let id = parseInt(this.props.id);
+        this.props.removeTask(id);
     }
 
     render() {
@@ -34,9 +34,9 @@ class Task extends React.Component {
 class TasksList extends React.Component {
 
     render() {
-        let tasks = this.props.tasks.map((item, index) => {
+        let tasks = this.props.tasks.map((item) => {
             return (
-                <Task item = {item} index = {index} removeTask = {this.props.removeTask}/>
+                <Task item = {item} id = {item.id} removeTask = {this.props.removeTask}/>
             )
         });
         return (
@@ -89,31 +89,37 @@ class ToDoApp extends React.Component {
         super(props);
         this.state = {
             tasks: [], // Массив с тасками
+            counter: -1,
         }
         this.addTask = this.addTask.bind(this); // Установка контекста для того, чтобы вызывать эти методы через пропсы
         this.removeTask = this.removeTask.bind(this);
-        //this.taskDone = this.taskDone.bind(this);
+        this.taskDone = this.taskDone.bind(this);
     }
 
     // Добавление таска в массив. Передается в пропсе в NewTaskForm
     addTask(task) {
+        let counter = this.state.counter + 1;
         this.state.tasks.push(
             {
-                index: this.state.tasks.length+1,
+                id: counter,
                 text: task,
                 done: false,
             }
         )
         let tasks = this.state.tasks.slice();
-        this.setState({tasks: tasks});
+        this.setState({tasks: tasks, counter: counter});
         console.log(this.state.tasks);
     }
 
-    removeTask(taskIndex){
-        console.log(taskIndex); //   Через фильтр
-       let tasks = this.state.tasks.splice(taskIndex, 1);
+    removeTask(taskId){
+        console.log(taskId); //   Через фильтр
+       let tasks = this.state.tasks.filter((item) => item.id !== taskId);
        this.setState({tasks: tasks});
         console.log(this.state.tasks);
+    }
+
+    taskDone(){
+
     }
 
     render() {
