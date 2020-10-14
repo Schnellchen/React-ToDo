@@ -120,6 +120,10 @@ li {
     width: 95%;
 }
 
+.done {
+    text-decoration: line-through;
+}
+
 .colors__item_chosen {
     width: 13px;
     height: 13px;

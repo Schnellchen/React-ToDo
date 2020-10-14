@@ -7,6 +7,8 @@ class Task extends React.Component {
     constructor(props) {
         super(props);
         this.onClickRemove = this.onClickRemove.bind(this);
+        this.onClickDone = this.onClickDone.bind(this);
+        //this.shouldComponentUpdate = this.shouldComponentUpdate.bind(this);
     }
 
     onClickRemove() {
@@ -14,15 +16,22 @@ class Task extends React.Component {
         this.props.removeTask(id);
     }
 
+    onClickDone(event) {
+        console.log(event.target.checked);
+        let id = parseInt(this.props.id);
+        this.props.taskDone(id);
+    }
+
     render() {
+        let style = this.props.item.done ? "done" : "";
         return(
             <li className={"to-do-list li"}>
                 <div className={"to-do-list__item colors__item_navy"}>
                     <div className="task__manage">
-                        <input className="task__checkbox" type="checkbox"></input>
+                        <input className="task__checkbox" onClick = {this.onClickDone} type="checkbox"/>
                     </div>
                     <div className="task__body">
-                        <p className="task__text"> {this.props.item.text}</p>
+                        <p className={`task__text ${style}`}> {this.props.item.text}</p>
                         <div onClick={this.onClickRemove}>X</div>
                     </div>
                 </div>
@@ -36,7 +45,7 @@ class TasksList extends React.Component {
     render() {
         let tasks = this.props.tasks.map((item) => {
             return (
-                <Task item = {item} id = {item.id} removeTask = {this.props.removeTask}/>
+                <Task item = {item} id = {item.id} removeTask = {this.props.removeTask} taskDone = {this.props.taskDone}/>
             )
         });
         return (
@@ -69,7 +78,7 @@ class NewTaskForm extends React.Component { // Компонент доска
         if (text){
             this.props.addTask(text);
         }
-        event.preventDefault(); // Предотвращение поведения по умолчанию?
+        event.preventDefault(); // Предотвращение перезагрузки страницы при отправке формы
     }
 
     render() {
@@ -88,10 +97,10 @@ class ToDoApp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tasks: [], // Массив с тасками
+            tasks: [],
             counter: -1,
         }
-        this.addTask = this.addTask.bind(this); // Установка контекста для того, чтобы вызывать эти методы через пропсы
+        this.addTask = this.addTask.bind(this); // Установка контекста этого родительского компонента для того, чтобы вызывать эти методы через пропсы в дочках
         this.removeTask = this.removeTask.bind(this);
         this.taskDone = this.taskDone.bind(this);
     }
@@ -118,15 +127,18 @@ class ToDoApp extends React.Component {
         console.log(this.state.tasks);
     }
 
-    taskDone(){
-
+    taskDone(taskId){
+        let task = this.state.tasks.find((item) => item.id === taskId)
+        task.done = !task.done;
+        let tasks = this.state.tasks.slice();
+        this.setState({tasks: tasks});
     }
 
     render() {
         return (
             <div className="wrapper">
                 <div className="to-do-app">
-                    <TasksList tasks = {this.state.tasks} removeTask = {this.removeTask}/>
+                    <TasksList tasks = {this.state.tasks} removeTask = {this.removeTask} taskDone = {this.taskDone}/>
                     <NewTaskForm addTask = {this.addTask}/>
                 </div>
             </div>
