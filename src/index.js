@@ -8,7 +8,6 @@ class Task extends React.Component {
         super(props);
         this.onClickRemove = this.onClickRemove.bind(this);
         this.onClickDone = this.onClickDone.bind(this);
-        //this.shouldComponentUpdate = this.shouldComponentUpdate.bind(this);
     }
 
     onClickRemove() {
@@ -16,8 +15,7 @@ class Task extends React.Component {
         this.props.removeTask(id);
     }
 
-    onClickDone(event) {
-        console.log(event.target.checked);
+    onClickDone() {
         let id = parseInt(this.props.id);
         this.props.taskDone(id);
     }
@@ -32,7 +30,7 @@ class Task extends React.Component {
                     </div>
                     <div className="task__body">
                         <p className={`task__text ${style}`}> {this.props.item.text}</p>
-                        <div onClick={this.onClickRemove}>X</div>
+                        <div className="removeIcon" onClick={this.onClickRemove}>X</div>
                     </div>
                 </div>
             </li>
@@ -41,6 +39,14 @@ class Task extends React.Component {
 }
 
 class TasksList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.onClickRemoveDone = this.onClickRemoveDone.bind(this);
+    }
+
+    onClickRemoveDone() {
+        this.props.removeDone();
+    }
 
     render() {
         let tasks = this.props.tasks.map((item) => {
@@ -51,6 +57,7 @@ class TasksList extends React.Component {
         return (
             <ul>
                 {tasks}
+                <div className="removeDoneIcon" onClick={this.onClickRemoveDone}>Удалить все</div>
             </ul>
         );
 
@@ -103,6 +110,8 @@ class ToDoApp extends React.Component {
         this.addTask = this.addTask.bind(this); // Установка контекста этого родительского компонента для того, чтобы вызывать эти методы через пропсы в дочках
         this.removeTask = this.removeTask.bind(this);
         this.taskDone = this.taskDone.bind(this);
+        this.changeTask = this.changeTask.bind(this);
+        this.removeDone = this.removeDone.bind(this);
     }
 
     // Добавление таска в массив. Передается в пропсе в NewTaskForm
@@ -127,9 +136,21 @@ class ToDoApp extends React.Component {
         console.log(this.state.tasks);
     }
 
+    removeDone(){
+        let tasks = this.state.tasks.filter((item) => item.done !== true);
+        this.setState({tasks: tasks});
+    }
+
     taskDone(taskId){
         let task = this.state.tasks.find((item) => item.id === taskId)
         task.done = !task.done;
+        let tasks = this.state.tasks.slice();
+        this.setState({tasks: tasks});
+    }
+
+    changeTask(taskId, text) {
+        let task = this.state.tasks.find((item) => item.id === taskId)
+        task.text = text;
         let tasks = this.state.tasks.slice();
         this.setState({tasks: tasks});
     }
@@ -138,7 +159,7 @@ class ToDoApp extends React.Component {
         return (
             <div className="wrapper">
                 <div className="to-do-app">
-                    <TasksList tasks = {this.state.tasks} removeTask = {this.removeTask} taskDone = {this.taskDone}/>
+                    <TasksList tasks = {this.state.tasks} removeTask = {this.removeTask} removeDone = {this.removeDone} taskDone = {this.taskDone}/>
                     <NewTaskForm addTask = {this.addTask}/>
                 </div>
             </div>
