@@ -26,7 +26,7 @@ class Task extends React.Component {
             <li className={"to-do-list li"}>
                 <div className={"to-do-list__item colors__item_navy"}>
                     <div className="task__manage">
-                        <input className="task__checkbox" onClick = {this.onClickDone} type="checkbox"/>
+                        <input className="task__checkbox" checked={this.props.item.done} onClick = {this.onClickDone} type="checkbox"/>
                     </div>
                     <div className="task__body">
                         <p className={`task__text ${style}`}> {this.props.item.text}</p>
@@ -41,23 +41,68 @@ class Task extends React.Component {
 class TasksList extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            currentTasks: "all",
+        };
         this.onClickRemoveDone = this.onClickRemoveDone.bind(this);
+        this.onClickShowDone = this.onClickShowDone.bind(this);
+        this.onClickShowUndone = this.onClickShowUndone.bind(this);
+        this.onClickShowAll = this.onClickShowAll.bind(this);
     }
 
     onClickRemoveDone() {
         this.props.removeDone();
     }
 
+    onClickShowDone() {
+        this.setState({currentTasks:"done"});
+    }
+    onClickShowUndone() {
+        this.setState({currentTasks:"undone"});
+    }
+    onClickShowAll() {
+        this.setState({currentTasks:"all"});
+    }
+
     render() {
-        let tasks = this.props.tasks.map((item) => {
-            return (
-                <Task item = {item} id = {item.id} removeTask = {this.props.removeTask} taskDone = {this.props.taskDone}/>
-            )
-        });
+        let tasks = [];
+        let counter = 0;
+        switch (this.state.currentTasks) {
+            case "all":
+                tasks = this.props.tasks.map((item) => {
+                    return (
+                        <Task item = {item} id = {item.id} removeTask = {this.props.removeTask} taskDone = {this.props.taskDone}/>
+                    )
+                });
+                counter = tasks.length;
+                break;
+            case "done":
+                tasks = this.props.tasks.filter((item) => item.done === true).map((item) => {
+                    return (
+                        <Task item = {item} id = {item.id} removeTask = {this.props.removeTask} taskDone = {this.props.taskDone}/>
+                    )
+                });
+                counter = tasks.length;
+                break;
+            case "undone":
+                tasks = this.props.tasks.filter((item) => item.done === false).map((item) => {
+                    return (
+                        <Task item = {item} id = {item.id} removeTask = {this.props.removeTask} taskDone = {this.props.taskDone}/>
+                    )
+                });
+                counter = tasks.length;
+                break;
+            default: return;
+        }
+
         return (
             <ul>
                 {tasks}
-                <div className="removeDoneIcon" onClick={this.onClickRemoveDone}>Удалить все</div>
+                <div className="removeDoneIcon" onClick={this.onClickRemoveDone}>Удалить все отмеченные</div>
+                <div className="removeDoneIcon" onClick={this.onClickShowDone}>Показать отмеченные</div>
+                <div className="removeDoneIcon" onClick={this.onClickShowUndone}>Показать неотмеченные</div>
+                <div className="removeDoneIcon" onClick={this.onClickShowAll}>Показать все</div>
+                <div className="removeDoneIcon">{counter}</div>
             </ul>
         );
 
@@ -159,8 +204,8 @@ class ToDoApp extends React.Component {
         return (
             <div className="wrapper">
                 <div className="to-do-app">
-                    <TasksList tasks = {this.state.tasks} removeTask = {this.removeTask} removeDone = {this.removeDone} taskDone = {this.taskDone}/>
                     <NewTaskForm addTask = {this.addTask}/>
+                    <TasksList tasks = {this.state.tasks} removeTask = {this.removeTask} removeDone = {this.removeDone} taskDone = {this.taskDone}/>
                 </div>
             </div>
         );
