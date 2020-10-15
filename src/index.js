@@ -65,19 +65,26 @@ class TasksList extends React.Component {
     onClickShowAll() {
         this.setState({currentTasks:"all"});
     }
-    onClickDoneAll() {
-        let allDone = !this.state.allDone
-        if (this.props.tasks.filter((item) => item.done === false).length > 0) {
-            this.props.allTasksDone(true);
-        } else {
-            allDone = !this.state.allDone
-            this.props.allTasksDone(allDone);
-        }
-        this.setState({allDone: allDone});
 
+
+    onClickDoneAll() {
+        let tasks = this.props.tasks;
+        if (tasks.length === 0) {
+            return ;
+        }
+
+        let allDone = !this.state.allDone;
+        if (tasks.filter((item) => item.done === false).length > 0) {
+            this.props.allTasksDone(true);
+            this.setState({allDone: true});
+        } else {
+            this.props.allTasksDone(allDone);
+            this.setState({allDone: allDone});
+        }
     }
 
     render() {
+        console.log("All done after", this.state.allDone);
         let tasks = [];
         let counter = 0;
         switch (this.state.currentTasks) {
@@ -208,7 +215,7 @@ class ToDoApp extends React.Component {
         this.setState({tasks: tasks});
     }
 
-    allTasksDone(allDone){
+    allTasksDone(allDone) {
         /*
         let tasks = this.state.tasks.map((item) => {
             return {
