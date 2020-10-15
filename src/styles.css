@@ -111,6 +111,15 @@ li {
     width: 90%;
 }
 
+.to-do-list .task__remove {
+    color: yellow;
+    opacity: 0;
+}
+
+.to-do-list:hover .task__remove {
+    opacity: 1;
+}
+
 .task__text {
     display: block;
     color: white;
@@ -120,7 +129,7 @@ li {
     width: 95%;
 }
 
-.done {
+.task_done {
     text-decoration: line-through;
 }
 
