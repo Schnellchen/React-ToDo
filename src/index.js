@@ -8,10 +8,11 @@ class Task extends React.Component {
         super(props);
         this.onClickRemove = this.onClickRemove.bind(this);
         this.onClickDone = this.onClickDone.bind(this);
+        this.onClickEdit = this.onClickEdit.bind(this);
     }
 
     onClickRemove() {
-        let id = parseInt(this.props.id);
+        let id = this.props.id;
         this.props.removeTask(id);
     }
 
@@ -19,6 +20,13 @@ class Task extends React.Component {
         let id = parseInt(this.props.id);
         this.props.taskDone(id);
     }
+
+    onClickEdit(event) {
+        let id = this.props.item.id;
+        let text = event.target.value;
+        this.props.editTask(id,text);
+    }
+
 
     render() {
         let style = this.props.item.done ? "done" : "";
@@ -28,7 +36,7 @@ class Task extends React.Component {
                     <div className="task__manage">
                         <input className="task__checkbox" checked={this.props.item.done} onClick = {this.onClickDone} type="checkbox"/>
                     </div>
-                    <div className="task__body">
+                    <div className="task__body" >
                         <p className={`task__text ${style}`}> {this.props.item.text}</p>
                         <div className="removeIcon" onClick={this.onClickRemove}>X</div>
                     </div>
@@ -66,7 +74,6 @@ class TasksList extends React.Component {
         this.setState({currentTasks:"all"});
     }
 
-
     onClickDoneAll() {
         let tasks = this.props.tasks;
         if (tasks.length === 0) {
@@ -85,24 +92,26 @@ class TasksList extends React.Component {
 
     render() {
         console.log("All done after", this.state.allDone);
-        let tasks = [];
-        let counter = 0;
+        let tasks = this.props.tasks;
+        let tasksDone = this.props.tasks.filter((item) => item.done === true);
+
+        let all = tasks.length;
+        let done = tasksDone.length;
+        let undone = tasks.length - tasksDone.length;
         switch (this.state.currentTasks) {
             case "all":
-                tasks = this.props.tasks.map((item) => {
+                tasks = tasks.map((item) => {
                     return (
                         <Task item = {item} id = {item.id} removeTask = {this.props.removeTask} taskDone = {this.props.taskDone}/>
                     )
                 });
-                counter = tasks.length;
                 break;
             case "done":
-                tasks = this.props.tasks.filter((item) => item.done === true).map((item) => {
+                tasks = tasksDone.map((item) => {
                     return (
                         <Task item = {item} id = {item.id} removeTask = {this.props.removeTask} taskDone = {this.props.taskDone}/>
                     )
                 });
-                counter = tasks.length;
                 break;
             case "undone":
                 tasks = this.props.tasks.filter((item) => item.done === false).map((item) => {
@@ -110,7 +119,6 @@ class TasksList extends React.Component {
                         <Task item = {item} id = {item.id} removeTask = {this.props.removeTask} taskDone = {this.props.taskDone}/>
                     )
                 });
-                counter = tasks.length;
                 break;
             default: return;
         }
@@ -123,7 +131,7 @@ class TasksList extends React.Component {
                 <div className="" onClick={this.onClickShowUndone}>Показать неотмеченные</div>
                 <div className="" onClick={this.onClickShowAll}>Показать все</div>
                 <div className="" onClick={this.onClickDoneAll}>Выделить все</div>
-                <div className="removeDoneIcon">{counter}</div>
+                <div className="">Всего {all} пунктов Сделано {done} пунктов Осталось {undone} пунктов</div>
             </ul>
         );
 
@@ -176,7 +184,7 @@ class ToDoApp extends React.Component {
         this.addTask = this.addTask.bind(this); // Установка контекста этого родительского компонента для того, чтобы вызывать эти методы через пропсы в дочках
         this.removeTask = this.removeTask.bind(this);
         this.taskDone = this.taskDone.bind(this);
-        this.changeTask = this.changeTask.bind(this);
+        this.editTask = this.editTask.bind(this);
         this.removeDone = this.removeDone.bind(this);
         this.allTasksDone = this.allTasksDone.bind(this);
     }
@@ -216,6 +224,7 @@ class ToDoApp extends React.Component {
     }
 
     allTasksDone(allDone) {
+        // (?) лучше так
         /*
         let tasks = this.state.tasks.map((item) => {
             return {
@@ -225,12 +234,15 @@ class ToDoApp extends React.Component {
             }
         });
         */
+
+        // или так?
         this.state.tasks.forEach((item) => item.done = allDone);
         let tasks = this.state.tasks.slice();
         this.setState({tasks: tasks});
+
     }
 
-    changeTask(taskId, text) {
+    editTask(taskId, text) {
         let task = this.state.tasks.find((item) => item.id === taskId)
         task.text = text;
         let tasks = this.state.tasks.slice();
@@ -242,8 +254,8 @@ class ToDoApp extends React.Component {
             <div className="wrapper">
                 <div className="to-do-app">
                     <NewTaskForm addTask = {this.addTask}/>
-                    <TasksList tasks = {this.state.tasks} removeTask = {this.removeTask} removeDone = {this.removeDone} taskDone = {this.taskDone} allTasksDone = {this.allTasksDone}
-                    />
+                    <TasksList tasks = {this.state.tasks} removeTask = {this.removeTask} removeDone = {this.removeDone} taskDone = {this.taskDone}
+                               allTasksDone = {this.allTasksDone} editTask = {this.editTask}/>
                 </div>
             </div>
         );
