@@ -10,23 +10,123 @@
 <body>
     <div class="wrapper">
         <div class="to-do-app">
-            <ul class="to-do-list" id="to-do-list">
-            </ul>
+            <header class="header">
+                <h1 class="header__text">todos</h1>
+            </header>
             <div class="new-task">
                 <input placeholder="Add new item" class="new-task__input" maxlength="85" id="new-task__input">
-                <div class="new-task__options">
-                    <div class="colors">
-                        <div class="colors__item colors__item_red"></div>
-                        <div class="colors__item colors__item_pink"></div>
-                        <div class="colors__item colors__item_purple"></div>
-                        <div class="colors__item colors__item_navy"></div>
-                        <div class="colors__item colors__item_blue"></div>
-                        <div class="colors__item colors__item_yellow"></div>
-                    </div>
-                </div>
                 <div class="new-task__controls">
                     <button class="new-task__btn" id="new-task__btn">Add</button>
                 </div>
+            </div>
+            <ul class="task-list">
+                <li class="task-list__li">
+                    <div class="to-do-list__item">
+                        <div class="task__manage">
+                            <input type="checkbox" class="task__checkbox"/>
+                        </div>
+                        <div class="task__body" >
+                            <p class='task__text'> КАКОЙ ТО ТАСК </p>
+                            <div class="task__remove">X</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-list__li">
+                    <div class="to-do-list__item">
+                        <div class="task__manage">
+                            <input type="checkbox" class="task__checkbox"/>
+                        </div>
+                        <div class="task__body" >
+                            <p class='task__text'> КАКОЙ ТО ТАСК </p>
+                            <div class="task__remove">X</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-list__li">
+                    <div class="to-do-list__item">
+                        <div class="task__manage">
+                            <input type="checkbox" class="task__checkbox"/>
+                        </div>
+                        <div class="task__body" >
+                            <p class='task__text'> КАКОЙ ТО ТАСК </p>
+                            <div class="task__remove">X</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-list__li">
+                    <div class="to-do-list__item">
+                        <div class="task__manage">
+                            <input type="checkbox" class="task__checkbox"/>
+                        </div>
+                        <div class="task__body" >
+                            <p class='task__text'> КАКОЙ ТО ТАСК </p>
+                            <div class="task__remove">X</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-list__li">
+                    <div class="to-do-list__item">
+                        <div class="task__manage">
+                            <input type="checkbox" class="task__checkbox"/>
+                        </div>
+                        <div class="task__body" >
+                            <p class='task__text'> КАКОЙ ТО ТАСК </p>
+                            <div class="task__remove">X</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-list__li">
+                    <div class="to-do-list__item">
+                        <div class="task__manage">
+                            <input type="checkbox" class="task__checkbox"/>
+                        </div>
+                        <div class="task__body" >
+                            <p class='task__text'> КАКОЙ ТО ТАСК </p>
+                            <div class="task__remove">X</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-list__li">
+                    <div class="to-do-list__item">
+                        <div class="task__manage">
+                            <input type="checkbox" class="task__checkbox"/>
+                        </div>
+                        <div class="task__body" >
+                            <p class='task__text'> КАКОЙ ТО ТАСК </p>
+                            <div class="task__remove">X</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-list__li">
+                    <div class="to-do-list__item">
+                        <div class="task__manage">
+                            <input type="checkbox" class="task__checkbox"/>
+                        </div>
+                        <div class="task__body" >
+                            <p class='task__text'> КАКОЙ ТО ТАСК </p>
+                            <div class="task__remove">X</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-list__li">
+                    <div class="to-do-list__item">
+                        <div class="task__manage">
+                            <input type="checkbox" class="task__checkbox"/>
+                        </div>
+                        <div class="task__body" >
+                            <p class='task__text'> КАКОЙ ТО ТАСК </p>
+                            <div class="task__remove">X</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="footer">
+                <div class="tasks-list__btn">Удалить все отмеченные</div>
+                <div class="tasks-list__btn">Показать отмеченные</div>
+                <div class="tasks-list__btn">Показать неотмеченные</div>
+                <div class="tasks-list__btn">Показать все</div>
+                <div class="">Всего {allTasksCount } пунктов Сделано {doneTasksCount }
+                    пунктов Осталось {undoneTasksCount } пунктов</div>
             </div>
         </div>
     </div>

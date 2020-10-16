@@ -78,14 +78,14 @@ class Task extends React.Component {
         let div = <div className="task__body" >
             <p className={`task__text ${style}`}> {this.props.item.text}</p>
             <div className="task__remove" onClick={this.onClickRemove}>X</div>
-        </div>;
+        </div>
         let input = <input autoFocus value={this.state.value} onKeyDown={this.onKeyDown} onChange = {this.handleChange}
                            onFocus={this.onFocus} onBlur={this.onBlur} />;
         let block = this.state.isEdit ? input : div;
 
         return(
-            <li className={"to-do-list"} onDoubleClick={this.onDoubleClickEdit}>
-                <div className={"to-do-list__item colors__item_navy"}>
+            <li className={"task-list__li"} onDoubleClick={this.onDoubleClickEdit}>
+                <div className={"to-do-list__item"}>
                     <div className="task__manage">
                         <input className="task__checkbox" checked={this.props.item.done} onClick={this.onClickDone}
                                type="checkbox"/>
@@ -178,13 +178,13 @@ class TasksList extends React.Component {
         }
 
         return (
-            <ul>
+            <ul className="tasks-list">
+                <div onClick={this.onClickDoneAll}>Выделить все</div>
                 {tasks}
-                <div className="" onClick={this.onClickRemoveDone}>Удалить все отмеченные</div>
-                <div className="" onClick={this.onClickShowDone}>Показать отмеченные</div>
-                <div className="" onClick={this.onClickShowUndone}>Показать неотмеченные</div>
-                <div className="" onClick={this.onClickShowAll}>Показать все</div>
-                <div className="" onClick={this.onClickDoneAll}>Выделить все</div>
+                <div className="tasks-list__btn" onClick={this.onClickRemoveDone}>Удалить все отмеченные</div>
+                <div className="tasks-list__btn" onClick={this.onClickShowDone}>Показать отмеченные</div>
+                <div className="tasks-list__btn" onClick={this.onClickShowUndone}>Показать неотмеченные</div>
+                <div className="tasks-list__btn" onClick={this.onClickShowAll}>Показать все</div>
                 <div className="">Всего {allTasksCount } пунктов Сделано {doneTasksCount }
                 пунктов Осталось {undoneTasksCount } пунктов</div>
             </ul>
