@@ -14,6 +14,9 @@
                 <h1 class="header__text">todos</h1>
             </header>
             <div class="new-task">
+                <div class="new-task__selector">
+                    <p>❯</p>
+                </div>
                 <input placeholder="Add new item" class="new-task__input" maxlength="85" id="new-task__input">
                 <div class="new-task__controls">
                     <button class="new-task__btn" id="new-task__btn">Add</button>
@@ -27,7 +30,9 @@
                         </div>
                         <div class="task__body" >
                             <p class='task__text'> КАКОЙ ТО ТАСК </p>
-                            <div class="task__remove">X</div>
+                        </div>
+                        <div class="task__manage">
+                            <div class="task__remove">×</div>
                         </div>
                     </div>
                 </li>
@@ -38,7 +43,9 @@
                         </div>
                         <div class="task__body" >
                             <p class='task__text'> КАКОЙ ТО ТАСК </p>
-                            <div class="task__remove">X</div>
+                        </div>
+                        <div class="task__manage">
+                            <div class="task__remove">×</div>
                         </div>
                     </div>
                 </li>
@@ -49,7 +56,9 @@
                         </div>
                         <div class="task__body" >
                             <p class='task__text'> КАКОЙ ТО ТАСК </p>
-                            <div class="task__remove">X</div>
+                        </div>
+                        <div class="task__manage">
+                            <div class="task__remove">×</div>
                         </div>
                     </div>
                 </li>
@@ -60,7 +69,9 @@
                         </div>
                         <div class="task__body" >
                             <p class='task__text'> КАКОЙ ТО ТАСК </p>
-                            <div class="task__remove">X</div>
+                        </div>
+                        <div class="task__manage">
+                            <div class="task__remove">×</div>
                         </div>
                     </div>
                 </li>
@@ -71,7 +82,9 @@
                         </div>
                         <div class="task__body" >
                             <p class='task__text'> КАКОЙ ТО ТАСК </p>
-                            <div class="task__remove">X</div>
+                        </div>
+                        <div class="task__manage">
+                            <div class="task__remove">×</div>
                         </div>
                     </div>
                 </li>
@@ -82,7 +95,9 @@
                         </div>
                         <div class="task__body" >
                             <p class='task__text'> КАКОЙ ТО ТАСК </p>
-                            <div class="task__remove">X</div>
+                        </div>
+                        <div class="task__manage">
+                            <div class="task__remove">×</div>
                         </div>
                     </div>
                 </li>
@@ -93,7 +108,9 @@
                         </div>
                         <div class="task__body" >
                             <p class='task__text'> КАКОЙ ТО ТАСК </p>
-                            <div class="task__remove">X</div>
+                        </div>
+                        <div class="task__manage">
+                            <div class="task__remove">×</div>
                         </div>
                     </div>
                 </li>
@@ -104,7 +121,9 @@
                         </div>
                         <div class="task__body" >
                             <p class='task__text'> КАКОЙ ТО ТАСК </p>
-                            <div class="task__remove">X</div>
+                        </div>
+                        <div class="task__manage">
+                            <div class="task__remove">×</div>
                         </div>
                     </div>
                 </li>
@@ -115,18 +134,66 @@
                         </div>
                         <div class="task__body" >
                             <p class='task__text'> КАКОЙ ТО ТАСК </p>
-                            <div class="task__remove">X</div>
+                        </div>
+                        <div class="task__manage">
+                            <div class="task__remove">×</div>
                         </div>
                     </div>
                 </li>
+                <li class="task-list__li">
+                    <div class="to-do-list__item">
+                        <div class="task__manage">
+                            <input type="checkbox" class="task__checkbox"/>
+                        </div>
+                        <div class="task__body" >
+                            <p class='task__text'> КАКОЙ ТО ТАСК </p>
+                        </div>
+                        <div class="task__manage">
+                            <div class="task__remove">×</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-list__li">
+                    <div class="to-do-list__item">
+                        <div class="task__manage">
+                            <input type="checkbox" class="task__checkbox"/>
+                        </div>
+                        <div class="task__body" >
+                            <p class='task__text'> КАКОЙ ТО ТАСК </p>
+                        </div>
+                        <div class="task__manage">
+                            <div class="task__remove">×</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-list__li">
+                    <div class="to-do-list__item">
+                        <div class="task__manage">
+                            <input type="checkbox" class="task__checkbox"/>
+                        </div>
+                        <div class="task__body" >
+                            <p class='task__text'> КАКОЙ ТО ТАСК </p>
+                        </div>
+                        <div class="task__manage">
+                            <div class="task__remove">×</div>
+                        </div>
+                    </div>
+                </li>
+
             </ul>
             <div class="footer">
-                <div class="tasks-list__btn">Удалить все отмеченные</div>
-                <div class="tasks-list__btn">Показать отмеченные</div>
-                <div class="tasks-list__btn">Показать неотмеченные</div>
-                <div class="tasks-list__btn">Показать все</div>
-                <div class="">Всего {allTasksCount } пунктов Сделано {doneTasksCount }
-                    пунктов Осталось {undoneTasksCount } пунктов</div>
+                <div class="footer__counter">
+                    <p>11 items left</p>
+                </div>
+                <div class="footer__filter">
+                <div class="footer__btn footer__btn_chosen">All</div>
+                <div class="footer__btn footer__btn_chosen">Active</div>
+                <div class="footer__btn">Completed</div>
+                </div>
+                <div class="footer__clear">
+                    <div class="footer__btn">Clear completed</div>
+                </div>
+
             </div>
         </div>
     </div>

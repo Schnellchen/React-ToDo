@@ -1,5 +1,5 @@
 html {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 body {
@@ -50,24 +50,34 @@ li {
     outline: 1px solid gainsboro;
 }
 
+.new-task__selector{
+    height: 100%;
+    width: 10%;
+    background-color: orange;
+}
+
+.new-task__selector p{
+    vertical-align: center;
+    font-size: 1.5rem;
+    transform: rotate(90deg);
+}
+
 .new-task__input {
-    width: 85%;
-    padding: 16px 16px 16px 60px;
-
-    background: rgba(0, 0, 0, 0.003);
-    box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
+    height: 100%;
+    width: 80%;
+    border: none;
+    outline: none;
+    font-size: 1.5rem;
 }
 
-.new-task__options {
-    width: 15%;
-}
 
 .new-task__controls {
-    width: 15%;
+    width: 10%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: yellow;
 }
 
 .new-task__btn {
@@ -76,7 +86,7 @@ li {
     font-size: 12pt;
     outline: none;
     border: none;
-    width: 60%;
+    width: 90%;
     height: 70%;
     border-radius: 3px;
 }
@@ -98,6 +108,11 @@ li {
     width: 100%;
     background-color: white;
     list-style: none;
+    border-bottom: 1px solid #ededed;
+}
+
+.task-list__li:last-child {
+    border-bottom: none;
 }
 
 .to-do-list__item {
@@ -108,14 +123,15 @@ li {
 }
 
 .task__text {
-    font-size: 24px;
+    font-size: 1.5rem;
 }
 
 .task__manage {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60px;
+    width: 10%;
+    background-color: greenyellow;
 }
 
 
@@ -123,15 +139,18 @@ li {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 90%;
+    width: 80%;
+    background-color: deepskyblue;
 }
 
-.to-do-list .task__remove {
+
+.task-list__li .task__remove {
+    font-size: 30px;
     color: #af5b5e;
     opacity: 0;
 }
 
-.to-do-list:hover .task__remove {
+.task-list__li:hover .task__remove {
     opacity: 1;
 }
 
@@ -145,4 +164,37 @@ li {
 
 .task_done {
     text-decoration: line-through;
+}
+
+.footer {
+    display: flex;
+}
+
+.footer__counter {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer__filter {
+    width: 40%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.footer__clear {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer__btn {
+
+}
+
+.footer__btn_chosen {
+    border: 1px solid #efd5d5;
+    border-radius: 3px;
 }
