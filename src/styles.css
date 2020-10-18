@@ -70,7 +70,7 @@ li {
 
 .new-task__input {
     height: 100%;
-    width: 80%;
+    width: 90%;
     border: none;
     outline: none;
     font-size: 1.5rem;
@@ -158,7 +158,7 @@ li {
 
 .task{
     display: flex;
-    height: 60px;
+    min-height: 60px;
 
 }
 
@@ -285,4 +285,23 @@ li {
 
 .task-menu__btn_chosen {
     border-color: rgba(175, 47, 47, 0.2);
+}
+
+@media screen and (max-width: 600px) { 
+    .to-do-app {
+        width: 300px;
+    }
+
+    .new-task__controls {
+        display: none;
+    }
+
+    .task__body {
+        width: 70%;
+    }
+
+    .task__manage {
+        width: 15%;
+    }
+    
 }

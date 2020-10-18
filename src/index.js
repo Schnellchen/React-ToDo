@@ -13,7 +13,7 @@ class Task extends React.Component {
         this.onClickRemove = this.onClickRemove.bind(this);
         this.onClickDone = this.onClickDone.bind(this);
         this.onDoubleClickEdit = this.onDoubleClickEdit.bind(this);
-        // (?) Мб лучше сделать отдельный компонент?
+
         this.handleChange = this.handleChange.bind(this);
         this.onBlur = this.onBlur.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);
@@ -137,10 +137,13 @@ class TasksList extends React.Component {
     render() {
         let tasks = this.props.tasks;
         let tasksDone = this.props.tasks.filter((item) => item.done === true);
-        //let allTasksCount = tasks.length;
+        
         let doneTasksCount = tasksDone.length;
         let undoneTasksCount = tasks.length - tasksDone.length;
+        
         let clearDoneStyle = (doneTasksCount > 0) ? "task-menu__clear" : "task-menu__clear_hidden";
+        let counterWord = (tasks.length === 1) ? " item" : " items"
+        
 
         switch (this.state.currentTasks) {
             case "all":
@@ -177,7 +180,7 @@ class TasksList extends React.Component {
             </ul>
             <div className="task-menu">
             <div className="task-menu__counter">
-                <p> {undoneTasksCount + " items left"} </p>
+                <p> {undoneTasksCount + counterWord + " left"} </p>
             </div>
             <div className="task-menu__filter">
             <div className={(this.state.currentTasks === "all") ? "task-menu__btn task-menu__btn_chosen" : "task-menu__btn"} onClick={this.onClickShowAll}>All</div>
@@ -246,7 +249,7 @@ class NewTaskForm extends React.Component { // Компонент доска
                     <p onClick={this.onClickDoneAll} className={selectorStyle}>❯</p>
                 </div>
                 <input placeholder="What needs to be done?" 
-                className="new-task__input" maxlength="85" autoFocus type="text" onChange = {this.handleChange}
+                className="new-task__input" autoFocus type="text" onChange = {this.handleChange}
                 value={this.state.value}/>
                 <div className="new-task__controls">
                     <button className="new-task__btn" id="new-task__btn">Add</button>
