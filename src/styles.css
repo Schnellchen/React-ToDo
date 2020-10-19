@@ -62,6 +62,7 @@ li {
     background: rgba(0, 0, 0, 0.003);
     cursor: pointer;
     color: #e6e6e6;
+    margin-left: 15px;
 }
 
 .task-selector__btn_chosen {
