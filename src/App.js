@@ -239,7 +239,6 @@ export class NewTaskForm extends React.Component { // Компонент дос�
     }
 
     render() {
-        console.log((this.state.allDone && !this.props.tasks.some((item) => item.done === false)) && this.props.tasks.length > 0)
         let selectorStyle = (this.state.allDone && !this.props.tasks.some((item) => item.done === false) && this.props.tasks.length > 0) ? "task-selector__btn task-selector__btn_chosen" : "task-selector__btn";
         return (
             <form onSubmit = {this.handleSubmit} className="new-task">
@@ -273,6 +272,15 @@ export class ToDoApp extends React.Component {
         this.allTasksDone = this.allTasksDone.bind(this);
     }
 
+    componentDidMount() {
+        const storageTasks = localStorage.getItem("tasks");
+        
+        if (storageTasks) {
+            const tasks = JSON.parse(storageTasks);
+            this.setState({tasks, counter: tasks.length});
+        }
+    };
+
     // Добавление таска в массив. Передается в пропсе в NewTaskForm
     addTask(task) {
         let counter = this.state.counter + 1;
@@ -284,19 +292,21 @@ export class ToDoApp extends React.Component {
             }
         )
         let tasks = this.state.tasks.slice();
+        localStorage.setItem("tasks", JSON.stringify(tasks));
         this.setState({tasks: tasks, counter: counter});
-        console.log(this.state.tasks);
     }
 
     // Удаление таска. Передается через TasksList в Task
     removeTask(taskId){
        let tasks = this.state.tasks.filter((item) => item.id !== taskId);
+       localStorage.setItem("tasks", JSON.stringify(tasks));
        this.setState({tasks: tasks});
     }
 
     // Передается в TasksList
     removeDone(){
         let tasks = this.state.tasks.filter((item) => item.done !== true);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
         this.setState({tasks: tasks});
     }
 
@@ -305,6 +315,7 @@ export class ToDoApp extends React.Component {
         let task = this.state.tasks.find((item) => item.id === taskId)
         task.done = !task.done;
         let tasks = this.state.tasks.slice();
+        localStorage.setItem("tasks", JSON.stringify(tasks));
         this.setState({tasks: tasks});
     }
 
@@ -312,6 +323,7 @@ export class ToDoApp extends React.Component {
     allTasksDone(allDone) {
         this.state.tasks.forEach((item) => item.done = allDone);
         let tasks = this.state.tasks.slice();
+        localStorage.setItem("tasks", JSON.stringify(tasks));
         this.setState({tasks: tasks});
     }
 
@@ -320,6 +332,7 @@ export class ToDoApp extends React.Component {
         let task = this.state.tasks.find((item) => item.id === taskId)
         task.text = text;
         let tasks = this.state.tasks.slice();
+        localStorage.setItem("tasks", JSON.stringify(tasks));
         this.setState({tasks: tasks});
     }
 

@@ -65,7 +65,7 @@ li {
     margin-left: 15px;
 }
 
-.task-selector__btn_chosen {
+.task-selector__btn_chosen, .task-selector__btn:hover {
     color: inherit;
 }
 
@@ -126,9 +126,8 @@ li {
     border: 1px solid black;
 }
 
-.new-task__btn :hover {
-    border: 2px solid white;
-    outline: 2px solid white;
+.new-task__btn:hover {
+    background-color: rgb(38, 140, 154);
 }
 
 .task-list {
